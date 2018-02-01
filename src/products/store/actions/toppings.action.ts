@@ -1,11 +1,20 @@
 import { Action } from '@ngrx/store';
 
-export const ANOTHER_ACTION = '[Feature] Another Action';
+export const LOAD_TOPPINGS = 'LOAD_TOPPINGS';
+export const LOAD_TOPPINGS_FAIL = 'LOAD_TOPPINGS_FAIL';
+export const LOAD_TOPPINGS_SUCCESS = 'LOAD_TOPPINGS_SUCCESS';
 
-export class AnotherAction implements Action {
-  readonly type = ANOTHER_ACTION;
-  constructor(public payload: any) {}
+export class LoadToppings implements Action {
+  readonly type = LOAD_TOPPINGS;
+}
+export class LoadToppingsSuccess implements Action {
+  readonly type = LOAD_TOPPINGS_SUCCESS;
+  constructor(public payload: string[]) { }
+}
+export class LoadToppingsFail implements Action {
+  readonly type = LOAD_TOPPINGS_FAIL;
+  constructor(public payload: any) { }
 }
 
 // action types
-export type ToppingsAction = AnotherAction;
+export type ToppingsAction = LoadToppings | LoadToppingsSuccess | LoadToppingsFail;
