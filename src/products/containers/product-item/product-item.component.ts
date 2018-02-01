@@ -20,7 +20,7 @@ import { of } from 'rxjs/observable/of';
       class="product-item">
       <pizza-form
         [pizza]="pizza$ | async"
-        [toppings]="toppings | async"
+        [toppings]="toppings$ | async"
         (selected)="onSelect($event)"
         (create)="onCreate($event)"
         (update)="onUpdate($event)"
@@ -58,21 +58,7 @@ export class ProductItemComponent implements OnInit {
       tap(pizza => this.store.dispatch(new fromStore.SelectPizza(pizza))),
     );
     this.selected$ = this.store.select(fromStore.getSelectedPizza);
-    this.toppings$ = this.store.select(fromStore.getToppings).pipe(tap(e => console.log(e)));
-    // this.pizzaService.getPizzas().subscribe(pizzas => {
-    //   const param = this.route.snapshot.params.id;
-    //   let pizza;
-    //   if (param === 'new') {
-    //     pizza = {};
-    //   } else {
-    //     pizza = pizzas.find(pizza => pizza.id == parseInt(param, 10));
-    //   }
-    //   this.pizza = pizza;
-    //   this.toppingsService.getToppings().subscribe(toppings => {
-    //     this.toppings = toppings;
-    //   });
-    //   this.store.dispatch(new fromStore.SelectPizza(this.pizza));
-    // });
+    this.toppings$ = this.store.select(fromStore.getToppings);
 
   }
 
