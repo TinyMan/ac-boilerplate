@@ -22,6 +22,24 @@ export class PizzasEffects {
     catchError(error => of(new pizzaActions.LoadPizzasFail(error))),
   );
 
+  @Effect()
+  createPizza$ = this.actions$
+    .ofType(pizzaActions.CREATE_PIZZA)
+    .pipe(
+    map((action: pizzaActions.CreatePizza) => action.payload),
+    exhaustMap(pizza => this.pizzaService.createPizza(pizza)),
+    map(pizza => new pizzaActions.CreatePizzaSuccess(pizza)),
+    catchError(err => of(new pizzaActions.CreatePizzaFail(err))),
+  );
+
+  @Effect({ dispatch: false })
+  createPizzaSuccess$ = this.actions$
+    .ofType(pizzaActions.CREATE_PIZZA_SUCCESS)
+    .pipe(
+    map((action: pizzaActions.CreatePizzaSuccess) => action.payload),
+    tap(pizza => this.router.navigate([`/products/${pizza.id}`])),
+  );
+
   constructor(
     private router: Router,
     private pizzaService: fromServices.PizzasService,

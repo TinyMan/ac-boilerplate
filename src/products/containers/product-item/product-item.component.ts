@@ -67,9 +67,7 @@ export class ProductItemComponent implements OnInit {
   }
 
   onCreate(event: Pizza) {
-    // this.pizzaService.createPizza(event).subscribe(pizza => {
-    //   this.router.navigate([`/products/${pizza.id}`]);
-    // });
+    this.store.dispatch(new fromStore.CreatePizza(event));
   }
 
   onUpdate(event: Pizza) {
